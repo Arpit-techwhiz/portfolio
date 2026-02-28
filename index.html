@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio · Embedded Systems & IoT Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #080c0e;
+  --bg2:       #0d1318;
+  --panel:     #101820;
+  --border:    #1a2a20;
+  --green:     #00ff88;
+  --green-dim: #00c060;
+  --amber:     #ffaa00;
+  --cyan:      #00e5ff;
+  --text:      #c8d8c0;
+  --muted:     #4a6050;
+  --mono:      'Share Tech Mono', monospace;
+  --sans:      'Exo 2', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* ─── GRID BACKGROUND ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── SCANLINE OVERLAY ─── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 3rem;
+  background: rgba(8,12,14,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--mono);
+  color: var(--green);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+}
+
+.nav-logo span { color: var(--muted); }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--green);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover { color: var(--green); }
+.nav-links a:hover::after { width: 100%; }
+
+/* ─── HERO ─── */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 3rem;
+  overflow: hidden;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+  animation: fadeUp 1s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-tag {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--green);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero-tag::before {
+  content: '';
+  width: 32px; height: 1px;
+  background: var(--green);
+}
+
+.hero-name {
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 900;
+  line-height: 1;
+  color: #fff;
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-name .highlight {
+  color: var(--green);
+  text-shadow: 0 0 40px rgba(0,255,136,0.4);
+}
+
+.hero-title {
+  font-family: var(--mono);
+  font-size: clamp(0.85rem, 2vw, 1.1rem);
+  color: var(--amber);
+  letter-spacing: 0.15em;
+  margin-bottom: 2rem;
+}
+
+.hero-desc {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 540px;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+}
+
+.hero-desc strong { color: var(--text); font-weight: 600; }
+
+.cta-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  background: var(--green);
+  color: #080c0e;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 700;
+  transition: all 0.2s;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+.btn-primary:hover {
+  background: #fff;
+  box-shadow: 0 0 30px rgba(0,255,136,0.5);
+}
+
+.btn-secondary {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  background: transparent;
+  color: var(--green);
+  border: 1px solid var(--green);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+.btn-secondary:hover {
+  background: rgba(0,255,136,0.08);
+  box-shadow: 0 0 20px rgba(0,255,136,0.2);
+}
+
+/* Circuit decoration */
+.circuit-deco {
+  position: absolute;
+  right: -60px; top: 50%;
+  transform: translateY(-50%);
+  width: 600px;
+  height: 600px;
+  opacity: 0.07;
+  pointer-events: none;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.stat-num {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--green);
+  font-family: var(--mono);
+  text-shadow: 0 0 20px rgba(0,255,136,0.3);
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+  font-family: var(--mono);
+}
+
+/* ─── SECTIONS ─── */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 6rem 3rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 3.5rem;
+}
+
+.section-num {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--green);
+  letter-spacing: 0.2em;
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+
+/* ─── SKILLS ─── */
+#skills { background: var(--bg2); padding: 6rem 0; }
+#skills > * { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
+#skills .section-header { padding: 0 3rem; }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  padding: 0 3rem;
+}
+
+.skill-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--green), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.skill-card:hover { border-color: var(--green-dim); transform: translateY(-4px); }
+.skill-card:hover::before { opacity: 1; }
+
+.skill-icon {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.skill-category {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--amber);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.skill-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  padding: 0.25rem 0.6rem;
+  background: rgba(0,255,136,0.06);
+  border: 1px solid rgba(0,255,136,0.15);
+  color: var(--green-dim);
+  letter-spacing: 0.05em;
+}
+
+/* ─── PROJECTS ─── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+  cursor: pointer;
+}
+
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,255,136,0.03) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.project-card:hover { border-color: var(--green-dim); transform: translateY(-5px); }
+.project-card:hover::after { opacity: 1; }
+
+.project-status {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--green);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.project-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.project-desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.project-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.project-link {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--cyan);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  border-bottom: 1px solid rgba(0,229,255,0.3);
+  padding-bottom: 2px;
+}
+
+.project-link:hover { color: #fff; border-color: #fff; }
+
+/* ─── ABOUT ─── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-text p {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+.about-text p strong { color: var(--text); }
+
+.terminal-block {
+  background: #060a0c;
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  line-height: 1.8;
+  position: relative;
+}
+
+.terminal-block::before {
+  content: '● ● ●';
+  display: block;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  letter-spacing: 0.2em;
+  font-size: 0.6rem;
+}
+
+.t-comment { color: var(--muted); }
+.t-key     { color: var(--cyan); }
+.t-val     { color: var(--green); }
+.t-str     { color: var(--amber); }
+.t-num     { color: #ff8888; }
+
+/* ─── CONTACT ─── */
+#contact {
+  background: var(--bg2);
+  text-align: center;
+  padding: 6rem 3rem;
+}
+
+#contact .section-header {
+  justify-content: center;
+}
+
+.contact-sub {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.contact-pill {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contact-pill:hover {
+  border-color: var(--green);
+  color: var(--green);
+  background: rgba(0,255,136,0.05);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+footer p {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--green-dim); border-radius: 2px; }
+
+/* ─── ANIMATIONS on scroll ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>~/</span>arpit-chaudhary</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <svg class="circuit-deco" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="50" y="50" width="300" height="300" stroke="white" stroke-width="0.5"/>
+    <line x1="50" y1="150" x2="200" y2="150" stroke="white" stroke-width="0.5"/>
+    <line x1="200" y1="50" x2="200" y2="150" stroke="white" stroke-width="0.5"/>
+    <circle cx="200" cy="150" r="6" stroke="white" stroke-width="0.5"/>
+    <line x1="200" y1="150" x2="350" y2="150" stroke="white" stroke-width="0.5"/>
+    <line x1="350" y1="150" x2="350" y2="250" stroke="white" stroke-width="0.5"/>
+    <line x1="350" y1="250" x2="200" y2="250" stroke="white" stroke-width="0.5"/>
+    <circle cx="200" cy="250" r="6" stroke="white" stroke-width="0.5"/>
+    <line x1="200" y1="250" x2="50" y2="250" stroke="white" stroke-width="0.5"/>
+    <rect x="140" y="170" width="120" height="60" stroke="white" stroke-width="1"/>
+    <line x1="100" y1="200" x2="140" y2="200" stroke="white" stroke-width="0.5"/>
+    <line x1="260" y1="200" x2="300" y2="200" stroke="white" stroke-width="0.5"/>
+    <circle cx="100" cy="200" r="3" fill="white" opacity="0.5"/>
+    <circle cx="300" cy="200" r="3" fill="white" opacity="0.5"/>
+    <text x="155" y="205" fill="white" font-size="10" font-family="monospace" opacity="0.6">MCU</text>
+    <line x1="160" y1="130" x2="160" y2="170" stroke="white" stroke-width="0.5"/>
+    <line x1="240" y1="130" x2="240" y2="170" stroke="white" stroke-width="0.5"/>
+    <line x1="160" y1="230" x2="160" y2="270" stroke="white" stroke-width="0.5"/>
+    <line x1="240" y1="230" x2="240" y2="270" stroke="white" stroke-width="0.5"/>
+    <rect x="145" y="110" width="30" height="20" stroke="white" stroke-width="0.5"/>
+    <rect x="225" y="110" width="30" height="20" stroke="white" stroke-width="0.5"/>
+    <rect x="145" y="270" width="30" height="20" stroke="white" stroke-width="0.5"/>
+    <rect x="225" y="270" width="30" height="20" stroke="white" stroke-width="0.5"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-tag">Embedded Systems · IoT · Firmware</div>
+    <div class="hero-name">Arpit <span class="highlight">Chaudhary</span></div>
+    <div class="hero-title">// Embedded Systems & IoT Engineer</div>
+    <p class="hero-desc">
+      Building <strong>reliable, efficient firmware</strong> and connected hardware systems — from bare-metal microcontrollers to cloud-integrated IoT platforms. I make hardware intelligent and communication seamless.
+    </p>
+    <div class="cta-row">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-secondary">Get In Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Years Exp.</div>
+      </div>
+      <div>
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Projects Built</div>
+      </div>
+      <div>
+        <div class="stat-num">5+</div>
+        <div class="stat-label">MCU Families</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<div id="skills">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">⚡</div>
+      <div class="skill-category">Hardware</div>
+      <div class="skill-name">Microcontrollers</div>
+      <div class="skill-tags">
+        <span class="tag">STM32</span>
+        <span class="tag">ESP32</span>
+        <span class="tag">AVR</span>
+        <span class="tag">ARM Cortex-M</span>
+        <span class="tag">PIC</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">📡</div>
+      <div class="skill-category">Connectivity</div>
+      <div class="skill-name">IoT Protocols</div>
+      <div class="skill-tags">
+        <span class="tag">MQTT</span>
+        <span class="tag">BLE</span>
+        <span class="tag">Zigbee</span>
+        <span class="tag">LoRaWAN</span>
+        <span class="tag">CoAP</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🔧</div>
+      <div class="skill-category">Firmware</div>
+      <div class="skill-name">Low-Level Development</div>
+      <div class="skill-tags">
+        <span class="tag">C / C++</span>
+        <span class="tag">FreeRTOS</span>
+        <span class="tag">Bare Metal</span>
+        <span class="tag">HAL</span>
+        <span class="tag">CMSIS</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🛰️</div>
+      <div class="skill-category">Interfaces</div>
+      <div class="skill-name">Communication Buses</div>
+      <div class="skill-tags">
+        <span class="tag">UART</span>
+        <span class="tag">SPI</span>
+        <span class="tag">I²C</span>
+        <span class="tag">CAN</span>
+        <span class="tag">USB</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">☁️</div>
+      <div class="skill-category">Cloud & Backend</div>
+      <div class="skill-name">IoT Platforms</div>
+      <div class="skill-tags">
+        <span class="tag">AWS IoT</span>
+        <span class="tag">Azure IoT Hub</span>
+        <span class="tag">Home Assistant</span>
+        <span class="tag">Node-RED</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🔬</div>
+      <div class="skill-category">Tooling</div>
+      <div class="skill-name">Debug & Design</div>
+      <div class="skill-tags">
+        <span class="tag">Oscilloscope</span>
+        <span class="tag">Logic Analyzer</span>
+        <span class="tag">KiCad</span>
+        <span class="tag">GDB</span>
+        <span class="tag">JTAG/SWD</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-status"><div class="status-dot"></div> Completed · Feb 2026</div>
+      <div class="project-name">🚁 Drone Navigator's Telemetry System</div>
+      <p class="project-desc">Real-time AI-powered drone telemetry and object detection system for rescue and surveillance. Achieves 30+ FPS with YOLOv8, multi-target tracking at ~92% confidence, and logs 10+ telemetry parameters (GPS, altitude, velocity) via structured CSV recording.</p>
+      <div class="project-tech">
+        <span class="tag">Python</span>
+        <span class="tag">OpenCV</span>
+        <span class="tag">YOLOv8</span>
+        <span class="tag">CSV Logging</span>
+        <span class="tag">Edge AI</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Arpit-techwhiz/drone-telemetry" target="_blank" class="project-link">→ GitHub</a>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-status"><div class="status-dot"></div> Completed · Dec 2025</div>
+      <div class="project-name">🌡 Temperature & Humidity Monitoring</div>
+      <p class="project-desc">End-to-end IoT environmental monitoring system with real-time cloud visualization. Achieves &lt;500 ms data refresh latency using MQTT for lightweight transmission and a Node-RED dashboard with live gauges and historical graphs.</p>
+      <div class="project-tech">
+        <span class="tag">ESP8266</span>
+        <span class="tag">DHT11</span>
+        <span class="tag">MQTT</span>
+        <span class="tag">Node-RED</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Arpit-techwhiz/iot-temp-humidity" target="_blank" class="project-link">→ GitHub</a>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-status"><div class="status-dot"></div> Completed · Apr – May 2024</div>
+      <div class="project-name">🧍 Fall Detection & Alert System</div>
+      <p class="project-desc">Wearable IoT fall detection system for elderly healthcare monitoring. Detects abnormal motion via MPU6050 accelerometer/gyroscope and triggers emergency alerts in &lt;2 seconds, with a 15% false-alarm reduction through algorithm refinement.</p>
+      <div class="project-tech">
+        <span class="tag">ESP32</span>
+        <span class="tag">MPU6050</span>
+        <span class="tag">IoT Alerts</span>
+        <span class="tag">C++</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Arpit-techwhiz/fall-detection" target="_blank" class="project-link">→ GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">About Me</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        I'm an <strong>Embedded Systems and IoT Engineer</strong> who thrives at the boundary between hardware and software. I love the challenge of making constrained devices communicate reliably and efficiently.
+      </p>
+      <p>
+        My work spans the full stack of embedded development — from schematic capture and PCB layout, through bare-metal firmware, up to cloud integration and data visualization.
+      </p>
+      <p>
+        When I'm not debugging a race condition at 3am, I'm usually <strong>tinkering with a new sensor</strong>, contributing to open-source firmware projects, or reading datasheets for fun.
+      </p>
+    </div>
+    <div class="terminal-block reveal">
+<span class="t-comment">// engineer.json</span>
+{
+  <span class="t-key">"name"</span>: <span class="t-str">"Arpit Chaudhary"</span>,
+  <span class="t-key">"role"</span>: <span class="t-str">"Embedded & IoT Eng."</span>,
+  <span class="t-key">"location"</span>: <span class="t-str">"Gorakhpur, India"</span>,
+  <span class="t-key">"github"</span>: <span class="t-str">"Arpit-techwhiz"</span>,
+  <span class="t-key">"projects"</span>: <span class="t-num">3</span>,
+  <span class="t-key">"languages"</span>: [
+    <span class="t-str">"C"</span>, <span class="t-str">"C++"</span>, <span class="t-str">"Python"</span>
+  ],
+  <span class="t-key">"interests"</span>: [
+    <span class="t-str">"RTOS design"</span>,
+    <span class="t-str">"low-power systems"</span>,
+    <span class="t-str">"PCB design"</span>
+  ],
+  <span class="t-key">"available"</span>: <span class="t-val">true</span>
+}
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div id="contact">
+  <div class="section-header reveal" style="justify-content:center">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Let's Build Something</h2>
+  </div>
+  <p class="contact-sub reveal">Open to freelance projects, full-time roles, and interesting collaborations.<br>The best systems are built by people who care about the craft.</p>
+  <div class="contact-links reveal">
+    <a href="/cdn-cgi/l/email-protection#90e9ffe5d0f5fdf1f9fcbef3fffd" class="contact-pill">✉ Email</a>
+    <a href="https://github.com/Arpit-techwhiz" target="_blank" class="contact-pill">⌥ GitHub</a>
+    <a href="https://www.linkedin.com/in/arpit-chaudhary93" target="_blank" class="contact-pill">⬡ LinkedIn</a>
+    <a href="https://github.com/Arpit-techwhiz/portfolio-assets/raw/main/MY_RESUME.pdf" target="_blank" class="contact-pill">↓ Resume</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Arpit Chaudhary · Embedded Systems & IoT Engineer</p>
+  <p>Built from scratch · No frameworks · Pure HTML/CSS/JS</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Blinking cursor in nav logo
+const logo = document.querySelector('.nav-logo');
+let show = true;
+setInterval(() => {
+  logo.innerHTML = show
+    ? '<span>~/</span>arpit-chaudhary<span style="color:var(-
