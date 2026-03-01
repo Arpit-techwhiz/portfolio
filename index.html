@@ -1,9 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arpit Chaudhary · Embedded Systems & IoT Engineer</title>
+
+<!-- ── SEO ── -->
+<meta name="description" content="Arpit Chaudhary — Embedded Systems & IoT Engineer from Gorakhpur, India. Building firmware, connected hardware, drone telemetry systems and edge AI. Open to internships and full-time roles.">
+<meta name="keywords" content="Embedded Systems, IoT Engineer, ESP32, FreeRTOS, MQTT, Drone Telemetry, YOLOv8, Edge AI, Firmware, C++, Python, Gorakhpur, MMMUT">
+<meta name="author" content="Arpit Chaudhary">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://arpit-techwhiz.github.io/portfolio/">
+
+<!-- ── Open Graph (LinkedIn, Facebook, WhatsApp) ── -->
+<meta property="og:type"        content="website">
+<meta property="og:url"         content="https://arpit-techwhiz.github.io/portfolio/">
+<meta property="og:title"       content="Arpit Chaudhary · Embedded Systems & IoT Engineer">
+<meta property="og:description" content="Firmware engineer building intelligent connected hardware — drone telemetry, IoT platforms, and edge AI systems. Open to internships & full-time roles.">
+<meta property="og:image"       content="https://github.com/Arpit-techwhiz/portfolio-assets/raw/main/drone-arch.png">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale"      content="en_IN">
+<meta property="og:site_name"   content="Arpit Chaudhary Portfolio">
+
+<!-- ── Twitter / X Card ── -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:site"        content="@ArpitC70295">
+<meta name="twitter:creator"     content="@ArpitC70295">
+<meta name="twitter:url"         content="https://arpit-techwhiz.github.io/portfolio/">
+<meta name="twitter:title"       content="Arpit Chaudhary · Embedded Systems & IoT Engineer">
+<meta name="twitter:description" content="Firmware engineer building intelligent connected hardware — drone telemetry, IoT platforms, and edge AI systems.">
+<meta name="twitter:image"       content="https://github.com/Arpit-techwhiz/portfolio-assets/raw/main/drone-arch.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -609,6 +637,18 @@ footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); le
 .social-icon:hover { border-color: var(--green); color: var(--green); background: rgba(0,255,136,0.06); transform: translateY(-3px); box-shadow: 0 0 16px rgba(0,255,136,0.2); }
 .social-icon svg { width: 18px; height: 18px; fill: currentColor; }
 
+
+/* ── PING ANIMATION ── */
+@keyframes pingFlash {
+  0%,100% { opacity: 1; transform: scale(1);    background: var(--green); box-shadow: 0 0 6px var(--green); }
+  25%      { opacity: 0.1; transform: scale(0.6); }
+  50%      { opacity: 1; transform: scale(1.6);  background: var(--cyan);  box-shadow: 0 0 20px var(--cyan); }
+  75%      { opacity: 0.1; transform: scale(0.6); }
+}
+.pulse-dot.pinging {
+  animation: pingFlash 0.25s ease-in-out infinite !important;
+}
+
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
@@ -788,15 +828,15 @@ footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); le
 <canvas id="circuit-canvas"></canvas>
 
 <!-- NAV -->
-<nav>
+<nav role="navigation" aria-label="Main navigation">
   <div class="nav-logo">~/arpit-chaudhary<span class="cursor-blink"></span></div>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#message">Contact</a></li>
+    <li><a href="#about" aria-label="Navigate to About section">About</a></li>
+    <li><a href="#skills" aria-label="Navigate to Technical Skills section">Skills</a></li>
+    <li><a href="#projects" aria-label="Navigate to Projects section">Projects</a></li>
+    <li><a href="#experience" aria-label="Navigate to Experience section">Experience</a></li>
+    <li><a href="#services" aria-label="Navigate to Services section">Services</a></li>
+    <li><a href="#message" aria-label="Navigate to Contact section">Contact</a></li>
   </ul>
   <div class="nav-badge"><div class="pulse-dot"></div> Available for hire</div>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
@@ -805,7 +845,7 @@ footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); le
 </nav>
 
 <!-- HERO -->
-<section id="hero">
+<section id="hero" role="banner">
   <div class="hero-bg-text">IoT</div>
   <div class="hero-content">
     <div class="hero-tag">Embedded Systems · IoT · Firmware Engineering</div>
@@ -815,20 +855,20 @@ footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); le
       Building <strong>reliable, efficient firmware</strong> and connected hardware systems — from bare-metal microcontrollers to cloud-integrated IoT platforms. I bridge the gap between silicon and the cloud.
     </p>
     <div class="cta-row">
-      <a href="#projects" class="btn-primary">⚡ View Projects</a>
-      <a href="https://github.com/Arpit-techwhiz/portfolio-assets/raw/main/MY_RESUME.pdf" target="_blank" class="btn-secondary">↓ Resume</a>
+      <a href="#projects" class="btn-primary" aria-label="View Arpit's projects">⚡ View Projects</a>
+      <a href="https://github.com/Arpit-techwhiz/portfolio-assets/raw/main/MY_RESUME.pdf" target="_blank" class="btn-secondary" aria-label="Download Arpit's resume PDF">↓ Resume</a>
     </div>
     <div class="social-icons">
       <!-- LinkedIn -->
-      <a href="https://www.linkedin.com/in/arpit-chaudhary93" target="_blank" class="social-icon" title="LinkedIn">
+      <a href="https://www.linkedin.com/in/arpit-chaudhary93" target="_blank" class="social-icon" title="LinkedIn" aria-label="Visit Arpit Chaudhary on LinkedIn">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       </a>
       <!-- Twitter / X -->
-      <a href="https://x.com/ArpitC70295" target="_blank" class="social-icon" title="Twitter / X">
+      <a href="https://x.com/ArpitC70295" target="_blank" class="social-icon" title="Twitter / X" aria-label="Visit Arpit Chaudhary on X (Twitter)">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
       </a>
       <!-- GitHub -->
-      <a href="https://github.com/Arpit-techwhiz" target="_blank" class="social-icon" title="GitHub">
+      <a href="https://github.com/Arpit-techwhiz" target="_blank" class="social-icon" title="GitHub" aria-label="Visit Arpit Chaudhary on GitHub">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
       </a>
     </div>
@@ -957,8 +997,8 @@ footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); le
           <p class="project-desc">Real-time AI-powered drone telemetry and object detection for rescue & surveillance. 30+ FPS with YOLOv8, ~92% detection confidence, logging 10+ UAV parameters.</p>
           <div class="project-tech"><span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">YOLOv8</span><span class="tag">CSV Logging</span><span class="tag">Edge AI</span></div>
           <div style="display:flex;gap:1rem;margin-top:auto;padding-top:1.25rem;align-items:center;flex-wrap:wrap;">
-            <a href="https://github.com/Arpit-techwhiz/Drone-Telemetry-System" target="_blank" class="project-link" onclick="event.stopPropagation()">→ GitHub</a>
-            <button class="flip-btn">⟳ See Architecture</button>
+            <a href="https://github.com/Arpit-techwhiz/Drone-Telemetry-System" target="_blank" class="project-link" onclick="event.stopPropagation()" aria-label="View Drone Telemetry System on GitHub">→ GitHub</a>
+            <button class="flip-btn" aria-label="Flip card to see system architecture diagram">⟳ See Architecture</button>
           </div>
         </div>
         <div class="card-back-img">
@@ -971,7 +1011,7 @@ footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); le
               <span class="arch-metric">~92% confidence</span>
               <span class="arch-metric">10+ params</span>
             </div>
-            <button class="flip-btn" onclick="event.stopPropagation();flipCard(this.closest('.project-card'))">← Back</button>
+            <button class="flip-btn" onclick="event.stopPropagation();flipCard(this.closest('.project-card'))" aria-label="Flip card back to project details">← Back</button>
           </div>
         </div>
       </div>
@@ -986,8 +1026,8 @@ footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); le
           <p class="project-desc">End-to-end IoT environmental monitoring with real-time cloud visualization. &lt;500 ms refresh latency via MQTT, Node-RED dashboard with live gauges and trend graphs.</p>
           <div class="project-tech"><span class="tag">ESP8266</span><span class="tag">DHT11</span><span class="tag">MQTT</span><span class="tag">Node-RED</span></div>
           <div style="display:flex;gap:1rem;margin-top:auto;padding-top:1.25rem;align-items:center;flex-wrap:wrap;">
-            <a href="https://github.com/Arpit-techwhiz/upskillcampus" target="_blank" class="project-link" onclick="event.stopPropagation()">→ GitHub</a>
-            <button class="flip-btn">⟳ See Architecture</button>
+            <a href="https://github.com/Arpit-techwhiz/upskillcampus" target="_blank" class="project-link" onclick="event.stopPropagation()" aria-label="View Temperature & Humidity Monitor on GitHub">→ GitHub</a>
+            <button class="flip-btn" aria-label="Flip card to see system architecture diagram">⟳ See Architecture</button>
           </div>
         </div>
         <div class="card-back-img">
@@ -1000,7 +1040,7 @@ footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); le
               <span class="arch-metric">MQTT</span>
               <span class="arch-metric">Live gauges</span>
             </div>
-            <button class="flip-btn" onclick="event.stopPropagation();flipCard(this.closest('.project-card'))">← Back</button>
+            <button class="flip-btn" onclick="event.stopPropagation();flipCard(this.closest('.project-card'))" aria-label="Flip card back to project details">← Back</button>
           </div>
         </div>
       </div>
@@ -1015,8 +1055,8 @@ footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); le
           <p class="project-desc">Wearable IoT fall detection for elderly healthcare. MPU6050 IMU detects abnormal motion and fires emergency alerts in &lt;2 seconds with 15% false-alarm reduction.</p>
           <div class="project-tech"><span class="tag">ESP32</span><span class="tag">MPU6050</span><span class="tag">C++</span><span class="tag">IoT Alerts</span></div>
           <div style="display:flex;gap:1rem;margin-top:auto;padding-top:1.25rem;align-items:center;flex-wrap:wrap;">
-            <a href="https://github.com/Arpit-techwhiz/Fall_detection_with_message_alert_system" target="_blank" class="project-link" onclick="event.stopPropagation()">→ GitHub</a>
-            <button class="flip-btn">⟳ See Architecture</button>
+            <a href="https://github.com/Arpit-techwhiz/Fall_detection_with_message_alert_system" target="_blank" class="project-link" onclick="event.stopPropagation()" aria-label="View Fall Detection & Alert System on GitHub">→ GitHub</a>
+            <button class="flip-btn" aria-label="Flip card to see system architecture diagram">⟳ See Architecture</button>
           </div>
         </div>
         <div class="card-back-img">
@@ -1029,7 +1069,7 @@ footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); le
               <span class="arch-metric">15% fewer false alarms</span>
               <span class="arch-metric">Wearable</span>
             </div>
-            <button class="flip-btn" onclick="event.stopPropagation();flipCard(this.closest('.project-card'))">← Back</button>
+            <button class="flip-btn" onclick="event.stopPropagation();flipCard(this.closest('.project-card'))" aria-label="Flip card back to project details">← Back</button>
           </div>
         </div>
       </div>
@@ -1125,7 +1165,7 @@ footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); le
 </section>
 
 <!-- MESSAGE ME -->
-<section id="message" class="section-wrap" style="padding-top:0;">
+<section id="message" role="main" class="section-wrap" style="padding-top:0;">
   <div class="section-header reveal">
     <h2 class="section-title">Message Me</h2>
     <div class="section-line"></div>
@@ -1399,6 +1439,7 @@ const terminalCommands = {
   <span class="t-out-amber">contact --send</span>    — jump to contact form
   <span class="t-out-amber">sudo get-resume</span>   — download PDF resume
   <span class="t-out-amber">internships</span>       — show internship history
+  <span class="t-out-amber">ping</span>              — ping the ESP32 hardware 📡
   <span class="t-out-amber">clear</span>             — clear terminal`,
 
   whoami: () => `<span class="t-out-green">Arpit Chaudhary</span> — Embedded Systems & IoT Engineer
@@ -1439,6 +1480,51 @@ const terminalCommands = {
      <span class="t-out-muted">→ Nov–Dec 2025 | ID: USC125060TIA</span>`,
 
   clear: () => '__clear__',
+
+  ping: () => {
+    const dot = document.querySelector('.pulse-dot');
+    const badge = document.querySelector('.nav-badge');
+    const originalBadgeText = badge.innerHTML;
+
+    // Start rapid pulse
+    dot.classList.add('pinging');
+    badge.innerHTML = '<div class="pulse-dot pinging"></div> Pinging ESP32...';
+
+    // Simulate ping sequence with output
+    setTimeout(() => {
+      const out = document.getElementById('terminal-output');
+
+      const lines = [
+        { t: 300,  html: '<span class="t-out-muted">PING esp32.local (192.168.1.42) 32 bytes of data.</span>' },
+        { t: 700,  html: '<span class="t-out-green">64 bytes from esp32.local: icmp_seq=1 ttl=64 time=<span class="t-out-amber">2.4 ms</span></span>' },
+        { t: 1100, html: '<span class="t-out-green">64 bytes from esp32.local: icmp_seq=2 ttl=64 time=<span class="t-out-amber">1.9 ms</span></span>' },
+        { t: 1500, html: '<span class="t-out-green">64 bytes from esp32.local: icmp_seq=3 ttl=64 time=<span class="t-out-amber">2.1 ms</span></span>' },
+        { t: 1900, html: '<span class="t-out-cyan">--- esp32.local ping statistics ---</span>' },
+        { t: 2100, html: '<span class="t-out-muted">3 packets transmitted, 3 received, <span class="t-out-green">0% packet loss</span>, time 2102ms</span>' },
+        { t: 2200, html: '<span class="t-out-muted">rtt min/avg/max = 1.9/2.1/2.4 ms</span>' },
+        { t: 2400, html: '<span class="t-out-green">✓ ESP32 is alive and responding.</span>' },
+      ];
+
+      lines.forEach(({ t, html }) => {
+        setTimeout(() => {
+          const line = document.createElement('div');
+          line.className = 't-out-line';
+          line.innerHTML = html;
+          out.appendChild(line);
+          document.getElementById('terminal-block').scrollTop = 99999;
+        }, t);
+      });
+
+    }, 200);
+
+    // Stop after 2.5s, restore badge
+    setTimeout(() => {
+      dot.classList.remove('pinging');
+      badge.innerHTML = '<div class="pulse-dot"></div> Available for hire';
+    }, 2600);
+
+    return '<span class="t-out-amber">Sending pulse to ESP32... 📡</span>';
+  },
 };
 
 function focusTerminal() {
