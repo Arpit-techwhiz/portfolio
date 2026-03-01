@@ -546,12 +546,35 @@ footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); le
 
   /* Nav → hamburger */
   nav { padding: 1rem 1.25rem; }
-  .nav-links { display: none; position: fixed; inset: 0; top: 60px;
-    background: rgba(6,10,12,0.97); flex-direction: column;
-    align-items: center; justify-content: center; gap: 2.5rem;
-    z-index: 150; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 1.25rem;
+    left: 1.25rem;
+    background: #060c0e;
+    border: 1px solid rgba(0,255,136,0.25);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.8), 0 0 0 1px rgba(0,255,136,0.05);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    z-index: 150;
+    padding: 0.5rem 0;
+    border-radius: 2px;
+  }
   .nav-links.open { display: flex; }
-  .nav-links a { font-size: 1rem; letter-spacing: 0.2em; }
+  .nav-links li { width: 100%; }
+  .nav-links a {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    display: block;
+    padding: 0.85rem 1.5rem;
+    border-bottom: 1px solid rgba(0,255,136,0.06);
+    width: 100%;
+  }
+  .nav-links li:last-child a { border-bottom: none; }
+  .nav-links a:hover { background: rgba(0,255,136,0.06); }
+  .nav-links a::after { display: none; }
   .nav-badge { display: none; }
 
   .hamburger { display: none; }
@@ -828,7 +851,7 @@ footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); le
 <canvas id="circuit-canvas"></canvas>
 
 <!-- NAV -->
-<nav role="navigation" aria-label="Main navigation">
+<nav role="navigation" aria-label="Main navigation" style="position:relative;">
   <div class="nav-logo">~/arpit-chaudhary<span class="cursor-blink"></span></div>
   <ul class="nav-links">
     <li><a href="#about" aria-label="Navigate to About section">About</a></li>
@@ -874,7 +897,7 @@ footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); le
     </div>
     <div class="hero-stats">
       <div><div class="stat-num">2+</div><div class="stat-label">Years Exp.</div></div>
-      <div><div class="stat-num">6+</div><div class="stat-label">Projects Built</div></div>
+      <div><div class="stat-num">3+</div><div class="stat-label">Projects Built</div></div>
       <div><div class="stat-num">5+</div><div class="stat-label">MCU Families</div></div>
       <div><div class="stat-num">3+</div><div class="stat-label">IoT Protocols</div></div>
     </div>
