@@ -1094,6 +1094,7 @@ footer p { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); le
   #chatbot-panel { width: calc(100vw - 2rem); right: 1rem; }
 }
 
+
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
@@ -1344,40 +1345,105 @@ async function sendChat() {
   if (!input || !msgs) return;
   const text = input.value.trim();
   if (!text) return;
+
+  // Show user message
   const userDiv = document.createElement('div');
   userDiv.className = 'chat-msg user';
   userDiv.textContent = text;
   msgs.appendChild(userDiv);
   input.value = '';
   msgs.scrollTop = msgs.scrollHeight;
+
+  // Typing indicator
   const typingDiv = document.createElement('div');
   typingDiv.className = 'chat-msg bot typing';
   typingDiv.textContent = '● ● ●';
   msgs.appendChild(typingDiv);
   if (sendBtn) sendBtn.disabled = true;
-  const ARPIT_CONTEXT = "You are an AI assistant on Arpit Chaudhary's portfolio. Arpit is an Embedded Systems & IoT Engineer from Gorakhpur, India. B.Tech ECE (IoT) at MMMUT 2023-present. Skills: ESP32, STM32, C, C++, Python, FreeRTOS, MQTT, BLE, LoRaWAN, YOLOv8, OpenCV, Edge AI, TFLite. Projects: 1) Drone Telemetry (YOLOv8, 30+FPS) 2) Temp & Humidity Monitor (ESP8266, MQTT) 3) Fall Detection (ESP32, MPU6050, <2s alert). Internships: 1) India Space Academy — Advanced Drone Technology Intern, Jan 6 to Feb 1 2026, COMPLETED, Enrollment No. 983957, project: Drone Navigator Telemetry System for Rescue Ops. 2) Uniconverge Technologies — IoT Intern, Nov-Dec 2025, ID USC125060TIA. Email: arpit21basti@gmail.com. GitHub: Arpit-techwhiz. Keep answers 2-4 sentences.";
-  try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 300, system: ARPIT_CONTEXT, messages: [{ role: 'user', content: text }] })
-    });
-    const data = await response.json();
-    typingDiv.remove();
-    const botDiv = document.createElement('div');
-    botDiv.className = 'chat-msg bot';
-    botDiv.textContent = data.content?.[0]?.text || 'Sorry, no response right now.';
-    msgs.appendChild(botDiv);
-  } catch(e) {
-    typingDiv.remove();
-    const errDiv = document.createElement('div');
-    errDiv.className = 'chat-msg bot';
-    errDiv.textContent = 'Connection error. Reach Arpit at arpit21basti@gmail.com!';
-    msgs.appendChild(errDiv);
-  }
+
+  // Simulate thinking delay
+  await new Promise(r => setTimeout(r, 600 + Math.random() * 400));
+  typingDiv.remove();
+
+  // Smart local response engine
+  const reply = getArpitAnswer(text.toLowerCase());
+  const botDiv = document.createElement('div');
+  botDiv.className = 'chat-msg bot';
+  botDiv.innerHTML = reply;
+  msgs.appendChild(botDiv);
+
   if (sendBtn) sendBtn.disabled = false;
   msgs.scrollTop = msgs.scrollHeight;
   if (input) input.focus();
+}
+
+function getArpitAnswer(q) {
+  // Projects
+  if (q.match(/project|build|make|work on|drone|telemetry|humidity|temp|fall|detect/)) {
+    if (q.match(/drone|telemetry|uav|yolo/))
+      return "🚁 <b>Drone Navigator's Telemetry System</b> (Feb 2026) — Real-time AI drone tracking using YOLOv8 achieving 30+ FPS and ~92% detection confidence. Logs GPS, altitude, and velocity via CSV. <a href='https://github.com/Arpit-techwhiz/Drone-Telemetry-System' target='_blank' style='color:var(--green)'>→ GitHub</a>";
+    if (q.match(/temp|humidity|mqtt|esp8266|iot monitor/))
+      return "🌡 <b>Temperature & Humidity Monitor</b> (Dec 2025) — ESP8266 + DHT11 sensor pushing data via MQTT to a Node-RED dashboard with &lt;500ms latency. <a href='https://github.com/Arpit-techwhiz/upskillcampus' target='_blank' style='color:var(--green)'>→ GitHub</a>";
+    if (q.match(/fall|detect|mpu|wearable|alert/))
+      return "🧍 <b>Fall Detection & Alert System</b> (Apr–May 2024) — Wearable ESP32 + MPU6050 IMU that detects falls in &lt;2 seconds and fires emergency alerts. 15% fewer false alarms via custom threshold algorithm. <a href='https://github.com/Arpit-techwhiz/Fall_detection_with_message_alert_system' target='_blank' style='color:var(--green)'>→ GitHub</a>";
+    return "Arpit has built 3 projects: <br>🚁 <b>Drone Telemetry System</b> (YOLOv8, 30+ FPS)<br>🌡 <b>IoT Temp & Humidity Monitor</b> (ESP8266, MQTT)<br>🧍 <b>Fall Detection System</b> (ESP32, MPU6050, &lt;2s alert)<br>All repos on <a href='https://github.com/Arpit-techwhiz' target='_blank' style='color:var(--green)'>GitHub →</a>";
+  }
+
+  // Skills
+  if (q.match(/skill|know|tech|stack|language|expert|mcu|microcontroller|protocol|rtos/)) {
+    if (q.match(/mcu|microcontroller|chip|esp|stm/))
+      return "⚡ Arpit works with <b>ESP32, ESP8266, STM32, AVR, and ARM Cortex-M</b> microcontrollers. He's most comfortable with ESP32 for IoT and STM32 for industrial firmware.";
+    if (q.match(/language|code|program|c\+\+|python/))
+      return "💻 Arpit codes primarily in <b>C, C++, and Python</b>. C/C++ for embedded firmware and Python for AI/vision pipelines like YOLOv8.";
+    if (q.match(/protocol|mqtt|ble|lora|uart|spi|i2c/))
+      return "📡 Arpit is proficient in <b>MQTT, BLE, LoRaWAN, UART, SPI, I²C, CAN</b>. He's used MQTT extensively for IoT dashboards and BLE for wireless sensor systems.";
+    if (q.match(/ai|ml|vision|yolo|opencv|tflite/))
+      return "🤖 Arpit works with <b>YOLOv8, OpenCV, TensorFlow Lite</b> for Edge AI. He deployed real-time object detection at 30+ FPS on his drone telemetry project.";
+    if (q.match(/rtos|freertos|zephyr/))
+      return "⚙ Arpit has hands-on experience with <b>FreeRTOS and Zephyr RTOS</b> for multitasking embedded applications.";
+    return "🔧 Arpit's core stack includes:<br><b>MCUs:</b> ESP32, STM32, AVR<br><b>Languages:</b> C, C++, Python<br><b>Protocols:</b> MQTT, BLE, LoRaWAN, UART, SPI, I²C<br><b>AI:</b> YOLOv8, OpenCV, TFLite<br><b>Cloud:</b> AWS IoT, Node-RED, Grafana";
+  }
+
+  // Internships / experience
+  if (q.match(/intern|experience|work|job|company|india space|isa|uniconverge/)) {
+    if (q.match(/india space|isa|drone intern|space/))
+      return "🚀 Arpit completed a <b>4-week Advanced Drone Technology internship at India Space Academy</b> (New Delhi), Jan 6 – Feb 1, 2026. He worked on drone design, flight control, and his Telemetry System project. Enrollment No. 983957.";
+    if (q.match(/uniconverge|iot intern|noida/))
+      return "🏢 Arpit completed an <b>IoT internship at Uniconverge Technologies</b> (Noida) from Nov–Dec 2025. Certificate ID: USC125060TIA.";
+    return "💼 Arpit has 2 completed internships:<br>🚀 <b>India Space Academy</b> — Advanced Drone Tech (Jan–Feb 2026)<br>🏢 <b>Uniconverge Technologies</b> — IoT Intern (Nov–Dec 2025)";
+  }
+
+  // Education
+  if (q.match(/study|educat|college|university|degree|mmmut|btech|b\.tech/))
+    return "🎓 Arpit is pursuing <b>B.Tech in Electronics & Communication Engineering (IoT)</b> at Madan Mohan Malaviya University of Technology (MMMUT), Gorakhpur — 2023 to present.";
+
+  // Contact / hire
+  if (q.match(/contact|email|hire|reach|connect|linkedin|github|available|opportunit/)) {
+    return "📬 You can reach Arpit at:<br>✉ <a href='mailto:arpit21basti@gmail.com' style='color:var(--green)'>arpit21basti@gmail.com</a><br>🔗 <a href='https://linkedin.com/in/arpit-chaudhary93' target='_blank' style='color:var(--green)'>LinkedIn</a><br>⌥ <a href='https://github.com/Arpit-techwhiz' target='_blank' style='color:var(--green)'>GitHub</a><br>He's actively open to internships and full-time roles!";
+  }
+
+  // Who is Arpit / about
+  if (q.match(/who|about|arpit|yourself|introduce|tell me/))
+    return "👨‍💻 <b>Arpit Chaudhary</b> is an Embedded Systems & IoT Engineer from Gorakhpur, India. He builds intelligent connected hardware — from bare-metal firmware to cloud-integrated IoT platforms. Currently pursuing B.Tech ECE (IoT) at MMMUT and actively seeking opportunities in embedded systems, IoT, and UAV technology.";
+
+  // Location
+  if (q.match(/locat|where|city|gorakhpur|india/))
+    return "📍 Arpit is based in <b>Gorakhpur, Uttar Pradesh, India</b>. He's open to remote work and on-site opportunities across India.";
+
+  // Certifications
+  if (q.match(/cert|certif|training|ansys|workshop/))
+    return "🏅 Arpit holds these certifications:<br>🚀 Advanced Drone Tech — India Space Academy (2026)<br>🏅 IoT Internship — Uniconverge Technologies (2025)<br>🏅 Ansys Industrial Training — MMMUT × ARK (2024)<br>🚁 Drone & IoT Workshop — MMMUT (2024)";
+
+  // Resume
+  if (q.match(/resume|cv|download/))
+    return "📄 You can download Arpit's resume here: <a href='https://github.com/Arpit-techwhiz/portfolio-assets/raw/main/MY_RESUME.pdf' target='_blank' style='color:var(--green)'>Download Resume →</a>";
+
+  // Help / commands
+  if (q.match(/help|what can|command|option/))
+    return "💡 You can ask me about:<br>• <b>Projects</b> — drone, IoT, fall detection<br>• <b>Skills</b> — MCUs, languages, protocols, AI<br>• <b>Internships</b> — ISA, Uniconverge<br>• <b>Education</b> — MMMUT, B.Tech<br>• <b>Certifications</b><br>• <b>Contact / Hire</b> info<br>• <b>Resume</b> download";
+
+  // Default
+  return "🤔 I'm not sure about that specific question. Try asking about Arpit's <b>projects</b>, <b>skills</b>, <b>internships</b>, <b>education</b>, or <b>how to contact him</b>! Type <b>help</b> for all options.";
 }
 
 // Restore saved theme on load
@@ -1553,6 +1619,7 @@ async function sendChat() {
   </div>
 </div>
 </div>
+
 
 <!-- PROJECTS -->
 <section id="projects" class="section-wrap">
@@ -1928,460 +1995,7 @@ document.querySelectorAll('.skill-bar').forEach(bar => {
 
 
 
-// ══════════════════════════════════════
-// PRO FEATURES JS
-// ══════════════════════════════════════
 
-// ── 1. DARK / LIGHT THEME TOGGLE ──
-
-// Restore saved theme
-(function() {
-  const saved = localStorage.getItem('theme');
-  if (saved === 'light') {
-    document.documentElement.setAttribute('data-theme', 'light');
-    const icon = document.getElementById('theme-icon');
-    if (icon) icon.textContent = '🌙';
-  }
-})();
-
-// ── 2. ANIMATED COUNTER STATS ──
-function animateCounter(el) {
-  if (el.dataset.animated) return;
-  el.dataset.animated = '1';
-  const target = parseInt(el.dataset.target);
-  let current = 0;
-  const steps = 40;
-  const delay = 1200 / steps;
-  el.textContent = '0+';
-  const timer = setInterval(() => {
-    current++;
-    el.textContent = current + '+';
-    if (current >= target) clearInterval(timer);
-  }, delay);
-}
-
-// Run immediately on page load — no observer needed for hero stats
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.querySelectorAll('.counter').forEach(el => animateCounter(el));
-  }, 800);
-});
-
-// ── 3. PROJECT FILTER ──
-
-
-// ── 4. LIVE GITHUB ACTIVITY FEED ──
-async function loadGitHubActivity() {
-  const container = document.getElementById('github-commits');
-  if (!container) return;
-
-  try {
-    const res = await fetch('https://api.github.com/users/Arpit-techwhiz/events/public?per_page=10');
-    const events = await res.json();
-
-    const pushEvents = events.filter(e => e.type === 'PushEvent').slice(0, 5);
-
-    if (!pushEvents.length) {
-      container.innerHTML = '<div style="font-family:var(--mono);font-size:0.72rem;color:var(--muted);padding:1rem;border:1px solid var(--border);">No recent push events found.</div>';
-      return;
-    }
-
-    container.innerHTML = '<div style="font-family:var(--mono);font-size:0.65rem;color:var(--green);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;">⬡ Recent Commits</div>';
-
-    pushEvents.forEach(event => {
-      const commit = event.payload.commits?.[0];
-      if (!commit) return;
-      const repo = event.repo.name.split('/')[1];
-      const msg = commit.message.split('\n')[0].slice(0, 60);
-      const date = new Date(event.created_at);
-      const timeAgo = getTimeAgo(date);
-
-      const div = document.createElement('div');
-      div.className = 'github-commit-item';
-      div.innerHTML = `
-        <div class="commit-dot"></div>
-        <div>
-          <div class="commit-repo">⬡ ${repo}</div>
-          <div class="commit-msg">${msg}</div>
-          <div class="commit-time">${timeAgo}</div>
-        </div>`;
-      container.appendChild(div);
-    });
-  } catch(e) {
-    container.innerHTML = '<div style="font-family:var(--mono);font-size:0.72rem;color:var(--muted);padding:1rem;border:1px solid var(--border);">Could not load GitHub activity.</div>';
-  }
-}
-
-function getTimeAgo(date) {
-  const secs = Math.floor((new Date() - date) / 1000);
-  if (secs < 60) return secs + 's ago';
-  if (secs < 3600) return Math.floor(secs/60) + 'm ago';
-  if (secs < 86400) return Math.floor(secs/3600) + 'h ago';
-  return Math.floor(secs/86400) + 'd ago';
-}
-
-loadGitHubActivity();
-
-// ── 5. VISITOR COUNTER ──
-async function loadVisitorCount() {
-  try {
-    const res = await fetch('https://api.countapi.xyz/hit/arpit-techwhiz-portfolio/visits');
-    const data = await res.json();
-    const el = document.getElementById('visitor-count');
-    if (el && data.value) {
-      let count = 0;
-      const target = data.value;
-      const timer = setInterval(() => {
-        count += Math.ceil(target / 30);
-        if (count >= target) { el.textContent = target.toLocaleString(); clearInterval(timer); }
-        else el.textContent = count.toLocaleString();
-      }, 40);
-    }
-  } catch(e) {
-    const el = document.getElementById('visitor-count');
-    if (el) el.textContent = '1K+';
-  }
-}
-loadVisitorCount();
-
-// ── 6. RADAR / SPIDER CHART ──
-(function drawRadar() {
-  const canvas = document.getElementById('radarChart');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  const cx = W/2, cy = H/2, R = Math.min(W,H)/2 - 50;
-
-  const skills = [
-    { label: 'Microcontrollers', value: 0.90 },
-    { label: 'IoT Protocols',    value: 0.85 },
-    { label: 'Firmware Dev',     value: 0.88 },
-    { label: 'Comm. Buses',      value: 0.80 },
-    { label: 'Cloud / IoT',      value: 0.75 },
-    { label: 'Debug Tools',      value: 0.82 },
-    { label: 'AI / Vision',      value: 0.78 },
-    { label: 'Dashboards',       value: 0.72 },
-  ];
-
-  const N = skills.length;
-  const angleStep = (Math.PI * 2) / N;
-  const gold = '#f0b429';
-  const goldFill = 'rgba(240,180,41,0.15)';
-  const gridColor = 'rgba(26,35,64,0.9)';
-  const textColor = '#c8d4f0';
-
-  function getPoint(i, r) {
-    const angle = i * angleStep - Math.PI / 2;
-    return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
-  }
-
-  let animPct = 0;
-  function draw(pct) {
-    ctx.clearRect(0, 0, W, H);
-
-    // Grid rings
-    [0.25, 0.5, 0.75, 1].forEach(ring => {
-      ctx.beginPath();
-      for (let i = 0; i < N; i++) {
-        const p = getPoint(i, R * ring);
-        i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
-      }
-      ctx.closePath();
-      ctx.strokeStyle = gridColor;
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    });
-
-    // Spokes
-    for (let i = 0; i < N; i++) {
-      const p = getPoint(i, R);
-      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(p.x, p.y);
-      ctx.strokeStyle = gridColor; ctx.lineWidth = 1; ctx.stroke();
-    }
-
-    // Data polygon
-    ctx.beginPath();
-    skills.forEach((s, i) => {
-      const p = getPoint(i, R * s.value * pct);
-      i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
-    });
-    ctx.closePath();
-    ctx.fillStyle = goldFill;
-    ctx.fill();
-    ctx.strokeStyle = gold;
-    ctx.lineWidth = 2;
-    ctx.shadowColor = gold;
-    ctx.shadowBlur = 8;
-    ctx.stroke();
-    ctx.shadowBlur = 0;
-
-    // Dots
-    skills.forEach((s, i) => {
-      const p = getPoint(i, R * s.value * pct);
-      ctx.beginPath(); ctx.arc(p.x, p.y, 4, 0, Math.PI*2);
-      ctx.fillStyle = gold; ctx.fill();
-    });
-
-    // Labels
-    ctx.font = '600 11px Inter, sans-serif';
-    ctx.fillStyle = textColor;
-    ctx.textAlign = 'center';
-    skills.forEach((s, i) => {
-      const p = getPoint(i, R + 28);
-      ctx.fillText(s.label, p.x, p.y + 4);
-    });
-
-    // Pct labels on rings
-    ctx.font = '10px JetBrains Mono, monospace';
-    ctx.fillStyle = 'rgba(58,74,106,0.9)';
-    [25, 50, 75, 100].forEach((v, i) => {
-      ctx.fillText(v + '%', cx + 4, cy - R * ((i+1)/4) + 4);
-    });
-  }
-
-  // Animate in
-  const radarObs = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      const start = performance.now();
-      const dur = 1200;
-      function frame(now) {
-        animPct = Math.min((now - start) / dur, 1);
-        const ease = 1 - Math.pow(1 - animPct, 3);
-        draw(ease);
-        if (animPct < 1) requestAnimationFrame(frame);
-      }
-      requestAnimationFrame(frame);
-      radarObs.disconnect();
-    }
-  }, { threshold: 0.3 });
-  radarObs.observe(canvas);
-})();
-
-// ── 7. SMOOTH PAGE TRANSITION ──
-(function() {
-  // Add transition overlay
-  const overlay = document.createElement('div');
-  overlay.className = 'page-transition';
-  document.body.appendChild(overlay);
-
-  // On internal link click
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', function(e) {
-      // smooth scroll already handles it — no transition needed
-    });
-  });
-
-  // On external link (GitHub, LinkedIn etc)
-  document.querySelectorAll('a[target="_blank"]').forEach(link => {
-    link.addEventListener('click', function() {
-      overlay.classList.add('show');
-      setTimeout(() => overlay.classList.remove('show'), 600);
-    });
-  });
-
-  // Page load reveal
-  window.addEventListener('load', () => {
-    overlay.classList.add('hide');
-    setTimeout(() => overlay.classList.remove('hide'), 500);
-  });
-})();
-
-
-// ══════════════════════════════════════
-// ADVANCED FEATURES v3
-// ══════════════════════════════════════
-
-// ── 1. CURSOR TRAIL ──
-(function() {
-  const trails = [];
-  const TRAIL_LENGTH = 18;
-  const colors = ['#00ff41','#00cc33','#00ff41','#39ff14','#00ffcc'];
-
-  for (let i = 0; i < TRAIL_LENGTH; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'trail-dot';
-    dot.style.opacity = String((1 - i / TRAIL_LENGTH) * 0.7);
-    dot.style.width = dot.style.height = (6 - i * 0.25) + 'px';
-    dot.style.background = colors[i % colors.length];
-    dot.style.boxShadow = `0 0 ${4 - i * 0.2}px ${colors[i % colors.length]}`;
-    document.body.appendChild(dot);
-    trails.push({ el: dot, x: 0, y: 0 });
-  }
-
-  let mx = 0, my = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-
-  function animTrail() {
-    let px = mx, py = my;
-    trails.forEach((t, i) => {
-      t.x += (px - t.x) * (0.35 - i * 0.015);
-      t.y += (py - t.y) * (0.35 - i * 0.015);
-      t.el.style.left = t.x + 'px';
-      t.el.style.top  = t.y + 'px';
-      px = t.x; py = t.y;
-    });
-    requestAnimationFrame(animTrail);
-  }
-  animTrail();
-
-  // Hide on mobile
-  if ('ontouchstart' in window) trails.forEach(t => t.el.style.display = 'none');
-})();
-
-// ── 2. 3D TILT ON PROJECT CARDS ──
-document.querySelectorAll('.project-card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    if (card.classList.contains('flipped')) return;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const cx = rect.width / 2;
-    const cy = rect.height / 2;
-    const rotX = ((y - cy) / cy) * -8;
-    const rotY = ((x - cx) / cx) * 8;
-    card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
-    const shine = card.querySelector('.tilt-shine');
-    if (shine) {
-      const pctX = (x / rect.width * 100).toFixed(1);
-      const pctY = (y / rect.height * 100).toFixed(1);
-      shine.style.setProperty('--mx', pctX + '%');
-      shine.style.setProperty('--my', pctY + '%');
-    }
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-    card.style.transition = 'transform 0.5s ease';
-    setTimeout(() => card.style.transition = '', 500);
-  });
-});
-
-// ── 3. SVG ANIMATED TIMELINE ──
-(function buildTimeline() {
-  const timeline = document.querySelector('.timeline');
-  if (!timeline) return;
-
-  const items = timeline.querySelectorAll('.timeline-item');
-  if (!items.length) return;
-
-  // Create SVG overlay
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.style.cssText = 'position:absolute;left:0;top:0;width:40px;pointer-events:none;overflow:visible;';
-  timeline.style.position = 'relative';
-  timeline.insertBefore(svg, timeline.firstChild);
-
-  function drawSVG() {
-    svg.innerHTML = '';
-    const tlRect = timeline.getBoundingClientRect();
-    svg.setAttribute('height', timeline.offsetHeight);
-
-    // Draw main line
-    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    line.setAttribute('x1', '20'); line.setAttribute('y1', '0');
-    line.setAttribute('x2', '20'); line.setAttribute('y2', timeline.offsetHeight);
-    line.setAttribute('stroke', 'rgba(0,255,65,0.15)');
-    line.setAttribute('stroke-width', '1');
-    line.setAttribute('stroke-dasharray', '4,4');
-    svg.appendChild(line);
-
-    // Animated line (fills as you scroll)
-    const animLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    animLine.setAttribute('x1', '20'); animLine.setAttribute('y1', '0');
-    animLine.setAttribute('x2', '20'); animLine.setAttribute('y2', '0');
-    animLine.setAttribute('stroke', 'var(--green)');
-    animLine.setAttribute('stroke-width', '2');
-    animLine.setAttribute('stroke-linecap', 'round');
-    animLine.id = 'tl-anim-line';
-    svg.appendChild(animLine);
-
-    // Nodes for each item
-    items.forEach((item, i) => {
-      const itemTop = item.offsetTop + 6;
-      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttribute('cx', '20');
-      circle.setAttribute('cy', itemTop);
-      circle.setAttribute('r', '6');
-      circle.setAttribute('fill', '#000d00');
-      circle.setAttribute('stroke', 'var(--green)');
-      circle.setAttribute('stroke-width', '2');
-      circle.style.filter = 'drop-shadow(0 0 6px rgba(0,255,65,0.6))';
-      circle.style.cursor = 'pointer';
-      circle.setAttribute('class', 'tl-svg-node');
-      svg.appendChild(circle);
-
-      // Glow ring
-      const glow = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      glow.setAttribute('cx', '20');
-      glow.setAttribute('cy', itemTop);
-      glow.setAttribute('r', '10');
-      glow.setAttribute('fill', 'none');
-      glow.setAttribute('stroke', 'rgba(0,255,65,0.2)');
-      glow.setAttribute('stroke-width', '1');
-      svg.appendChild(glow);
-    });
-  }
-
-  // Animate line fill on scroll
-  function updateTimelineScroll() {
-    const animLine = document.getElementById('tl-anim-line');
-    if (!animLine) return;
-    const tlRect = timeline.getBoundingClientRect();
-    const visible = Math.max(0, window.innerHeight - tlRect.top);
-    const pct = Math.min(visible / timeline.offsetHeight, 1);
-    animLine.setAttribute('y2', Math.floor(timeline.offsetHeight * pct));
-  }
-
-  drawSVG();
-  window.addEventListener('resize', drawSVG);
-  window.addEventListener('scroll', updateTimelineScroll);
-  updateTimelineScroll();
-})();
-
-// ── 4. AI CHATBOT (defined in early script above) ──
-const ARPIT_CONTEXT = `You are an AI assistant embedded in Arpit Chaudhary's portfolio website. Answer questions about Arpit concisely and professionally. Here is everything about Arpit:
-
-NAME: Arpit Chaudhary
-ROLE: Embedded Systems & IoT Engineer
-LOCATION: Gorakhpur, India
-UNIVERSITY: B.Tech ECE (IoT) at MMMUT (Madan Mohan Malaviya University of Technology), Gorakhpur, 2023-Present
-EMAIL: arpit21basti@gmail.com
-GITHUB: github.com/Arpit-techwhiz
-LINKEDIN: linkedin.com/in/arpit-chaudhary93
-TWITTER: x.com/ArpitC70295
-
-SKILLS: ESP32, ESP8266, STM32, AVR, ARM Cortex-M, MQTT, BLE, LoRaWAN, Zigbee, CoAP, C, C++, Python, FreeRTOS, Bare Metal, UART, SPI, I2C, CAN, USB, AWS IoT, Node-RED, Grafana, OpenCV, YOLOv8, Edge AI, TFLite, KiCad, Oscilloscope, Logic Analyzer, GDB, JTAG
-
-PROJECTS:
-1. Drone Navigator's Telemetry System (Feb 2026) - Real-time AI drone telemetry with YOLOv8, 30+ FPS, 92% confidence, 10+ parameters logged. GitHub: github.com/Arpit-techwhiz/Drone-Telemetry-System
-2. Temperature & Humidity Monitor (Dec 2025) - ESP8266 + DHT11, MQTT, Node-RED dashboard, <500ms latency. GitHub: github.com/Arpit-techwhiz/upskillcampus  
-3. Fall Detection & Alert System (Apr-May 2024) - ESP32 + MPU6050, <2s alert, 15% fewer false alarms. GitHub: github.com/Arpit-techwhiz/Fall_detection_with_message_alert_system
-
-INTERNSHIPS:
-1. India Space Academy - Advanced Drone Technology Intern, Jan 6 - Feb 1 2026, COMPLETED, Enrollment No. 983957
-2. Uniconverge Technologies Pvt. Ltd., Noida - IoT Intern, Nov-Dec 2025 (Certificate ID: USC125060TIA)
-
-CERTIFICATIONS:
-1. IoT Internship - Uniconverge Technologies, Nov-Dec 2025
-2. Ansys Industrial Training - MMMUT x ARK Infosolution, Apr 2024
-3. Drone & IoT Club Workshop - MMMUT, Apr-May 2024
-
-AVAILABILITY: Actively seeking internships and full-time roles in embedded systems, IoT, and UAV technology.
-
-Keep answers short (2-4 sentences max). If asked something not about Arpit, politely redirect.`;
-
-// ── 5. GLITCH effect on hover ──
-document.querySelectorAll('.glitch').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    el.style.animation = 'none';
-    setTimeout(() => el.style.animation = '', 10);
-  });
-});
-
-// ── 6. PWA Service Worker ──
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js').catch(() => {});
-  });
-}
 
 // ── HAMBURGER MENU ──
 
