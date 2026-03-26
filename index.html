@@ -55,25 +55,183 @@
   --mono:      'JetBrains Mono', monospace;
   --sans:      'Inter', sans-serif;
 }
+
+/* ══════════════════════════════════
+   LIGHT MODE — Full Override
+══════════════════════════════════ */
 [data-theme="light"] {
-  --bg:        #f0fff0;
-  --bg2:       #e0ffe0;
+  --bg:        #f4fff4;
+  --bg2:       #eafaea;
   --panel:     #ffffff;
-  --border:    #b0e0b0;
-  --text:      #003300;
-  --muted:     #2a6a2a;
-  --green-dark:#e0ffe0;
+  --border:    #c0e0c0;
+  --green:     #007a20;
+  --green-dim: #005a18;
+  --green-dark:#e0f7e0;
+  --amber:     #5a8a00;
+  --cyan:      #006688;
+  --red:       #cc0022;
+  --text:      #0a1a0a;
+  --muted:     #3a6a3a;
 }
-[data-theme="light"] {
-  --bg:        #f8faff;
-  --bg2:       #eef2ff;
-  --panel:     #ffffff;
-  --border:    #d0d8f0;
-  --text:      #1e2a4a;
-  --muted:     #6878a8;
-  --green-dark:#fff8e0;
-  --panel:     #ffffff;
+
+/* Body & backgrounds */
+[data-theme="light"] body { background: var(--bg); color: var(--text); }
+[data-theme="light"] body::before { background-image:
+  linear-gradient(rgba(0,120,30,0.06) 1px, transparent 1px),
+  linear-gradient(90deg, rgba(0,120,30,0.06) 1px, transparent 1px); }
+
+/* Nav */
+[data-theme="light"] nav {
+  background: rgba(244,255,244,0.95);
+  border-bottom-color: var(--border);
 }
+[data-theme="light"] .nav-logo { color: var(--green); }
+[data-theme="light"] .nav-links a { color: var(--muted); }
+[data-theme="light"] .nav-links a:hover { color: var(--green); }
+[data-theme="light"] .nav-badge { border-color: var(--border); color: var(--muted); }
+[data-theme="light"] .nav-links { background: #f4fff4; border-color: var(--green); }
+
+/* Hero */
+[data-theme="light"] .hero-name { color: #0a1a0a; }
+[data-theme="light"] .hero-name .hl { color: var(--green); text-shadow: 0 0 20px rgba(0,120,30,0.2); }
+[data-theme="light"] .hero-tag { color: var(--green); }
+[data-theme="light"] .hero-tag::before { background: var(--green); }
+[data-theme="light"] .hero-typewriter { color: var(--green-dim); }
+[data-theme="light"] .hero-desc { color: var(--muted); }
+[data-theme="light"] .hero-desc strong { color: var(--text); }
+[data-theme="light"] .stat-num { color: var(--green); text-shadow: none; }
+[data-theme="light"] .stat-label { color: var(--muted); }
+[data-theme="light"] .hero-stats { border-top-color: var(--border); }
+[data-theme="light"] .hero-bg-text { color: rgba(0,120,30,0.04); }
+
+/* Buttons */
+[data-theme="light"] .btn-primary { background: var(--green); color: #fff; }
+[data-theme="light"] .btn-primary:hover { background: var(--green-dim); box-shadow: 0 0 20px rgba(0,120,30,0.3); }
+[data-theme="light"] .btn-secondary { color: var(--green); border-color: var(--green); }
+[data-theme="light"] .btn-secondary:hover { background: rgba(0,120,30,0.08); }
+
+/* Social icons */
+[data-theme="light"] .social-icon { border-color: var(--border); color: var(--muted); background: #fff; }
+[data-theme="light"] .social-icon:hover { border-color: var(--green); color: var(--green); background: #f0fff0; }
+
+/* Cards */
+[data-theme="light"] .skill-card,
+[data-theme="light"] .project-card .card-front,
+[data-theme="light"] .service-card,
+[data-theme="light"] .cert-card,
+[data-theme="light"] .timeline-item,
+[data-theme="light"] .dimension {
+  background: #ffffff;
+  border-color: var(--border);
+}
+[data-theme="light"] .skill-card:hover,
+[data-theme="light"] .service-card:hover,
+[data-theme="light"] .cert-card:hover { border-color: var(--green); }
+
+/* Text inside cards */
+[data-theme="light"] .skill-name,
+[data-theme="light"] .project-name,
+[data-theme="light"] .service-name,
+[data-theme="light"] .cert-name,
+[data-theme="light"] .timeline-role { color: #0a1a0a; font-weight: 700; }
+[data-theme="light"] .skill-category,
+[data-theme="light"] .cert-issuer { color: var(--green-dim); }
+[data-theme="light"] .project-desc,
+[data-theme="light"] .service-desc,
+[data-theme="light"] .timeline-desc,
+[data-theme="light"] .about-text p { color: var(--muted); }
+[data-theme="light"] .timeline-date { color: var(--green); }
+[data-theme="light"] .timeline-org { color: var(--green-dim); }
+[data-theme="light"] .section-title { color: #0a1a0a; }
+
+/* Tags */
+[data-theme="light"] .tag {
+  background: #e8f8e8;
+  border-color: rgba(0,120,30,0.25);
+  color: var(--green-dim);
+}
+
+/* Skill bars */
+[data-theme="light"] .skill-bar-wrap { background: rgba(0,120,30,0.1); }
+[data-theme="light"] .skill-pct { color: var(--green); }
+
+/* Terminal */
+[data-theme="light"] .terminal-block {
+  background: #f0fff0;
+  border-color: var(--border);
+}
+[data-theme="light"] .terminal-topbar { border-bottom-color: var(--border); }
+[data-theme="light"] .tb-title { color: var(--muted); }
+[data-theme="light"] #terminal-input { color: var(--text); }
+[data-theme="light"] .t-comment { color: #5a8a5a; }
+[data-theme="light"] .t-key     { color: var(--cyan); }
+[data-theme="light"] .t-val     { color: var(--green); }
+[data-theme="light"] .t-str     { color: #8a6000; }
+[data-theme="light"] .t-num     { color: #cc2200; }
+[data-theme="light"] .t-out-line { color: var(--text); }
+[data-theme="light"] .t-out-green { color: var(--green); }
+[data-theme="light"] .t-out-muted { color: var(--muted); }
+[data-theme="light"] .terminal-prompt { color: var(--green); }
+
+/* Section backgrounds */
+[data-theme="light"] #skills,
+[data-theme="light"] #experience,
+[data-theme="light"] #contact { background: #eafaea; }
+
+/* Filter tabs */
+[data-theme="light"] .filter-btn { border-color: var(--border); color: var(--muted); }
+[data-theme="light"] .filter-btn:hover { border-color: var(--green); color: var(--green); }
+[data-theme="light"] .filter-btn.active { background: var(--green); color: #fff; }
+
+/* Scroll progress */
+[data-theme="light"] #scroll-progress { background: rgba(0,120,30,0.1); }
+
+/* Message form */
+[data-theme="light"] .form-input {
+  background: #fff;
+  border-color: var(--border);
+  color: var(--text);
+}
+[data-theme="light"] .form-input:focus { border-color: var(--green); }
+[data-theme="light"] .form-label { color: var(--green); }
+[data-theme="light"] .message-sub { color: var(--muted); }
+[data-theme="light"] .message-detail-item { color: var(--muted); }
+[data-theme="light"] .detail-icon { background: #e0f5e0; border-color: rgba(0,120,30,0.2); color: var(--green); }
+
+/* Contact pills */
+[data-theme="light"] .contact-pill { border-color: var(--border); color: var(--muted); }
+[data-theme="light"] .contact-pill:hover { border-color: var(--green); color: var(--green); background: #f0fff0; }
+
+/* Footer */
+[data-theme="light"] footer { border-top-color: var(--border); }
+[data-theme="light"] footer p { color: var(--muted); }
+
+/* Chatbot */
+[data-theme="light"] #chatbot-panel { background: #f4fff4; border-color: var(--green); }
+[data-theme="light"] .chat-header { background: #e8f8e8; border-bottom-color: var(--border); }
+[data-theme="light"] .chat-header-title { color: var(--green); }
+[data-theme="light"] .chat-msg.bot { background: #fff; border-color: var(--border); color: var(--text); }
+[data-theme="light"] .chat-msg.user { background: rgba(0,120,30,0.08); color: var(--green); }
+[data-theme="light"] .chat-input-row { background: #e8f8e8; border-top-color: var(--border); }
+[data-theme="light"] .chat-input { background: #fff; border-color: var(--border); color: var(--text); }
+[data-theme="light"] .chat-send { background: var(--green); color: #fff; }
+
+/* Cursor trail hidden in light */
+[data-theme="light"] .trail-dot { opacity: 0.3; }
+
+/* Canvas */
+[data-theme="light"] #circuit-canvas { opacity: 0.15; }
+
+/* Cert badge */
+[data-theme="light"] .cert-badge { color: var(--green); border-color: rgba(0,120,30,0.3); }
+[data-theme="light"] .project-status { color: var(--green); }
+[data-theme="light"] .status-dot { background: var(--green); box-shadow: 0 0 6px var(--green); }
+
+/* About section text */
+[data-theme="light"] .about-text p strong { color: #0a1a0a; }
+
+/* Theme toggle button */
+[data-theme="light"] #theme-toggle { background: #fff !important; color: var(--green) !important; border-color: var(--border) !important; }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -1196,7 +1354,7 @@ async function sendChat() {
   typingDiv.textContent = '● ● ●';
   msgs.appendChild(typingDiv);
   if (sendBtn) sendBtn.disabled = true;
-  const ARPIT_CONTEXT = "You are an AI assistant on Arpit Chaudhary's portfolio. Arpit is an Embedded Systems & IoT Engineer from Gorakhpur, India. B.Tech ECE (IoT) at MMMUT 2023-present. Skills: ESP32, STM32, C, C++, Python, FreeRTOS, MQTT, BLE, LoRaWAN, YOLOv8, OpenCV, Edge AI, TFLite. Projects: 1) Drone Telemetry (YOLOv8, 30+FPS) 2) Temp & Humidity Monitor (ESP8266, MQTT) 3) Fall Detection (ESP32, MPU6050, <2s alert). Internships: India Space Academy (Jan 2026-present) and Uniconverge Technologies (Nov-Dec 2025). Email: arpit21basti@gmail.com. GitHub: Arpit-techwhiz. Keep answers 2-4 sentences.";
+  const ARPIT_CONTEXT = "You are an AI assistant on Arpit Chaudhary's portfolio. Arpit is an Embedded Systems & IoT Engineer from Gorakhpur, India. B.Tech ECE (IoT) at MMMUT 2023-present. Skills: ESP32, STM32, C, C++, Python, FreeRTOS, MQTT, BLE, LoRaWAN, YOLOv8, OpenCV, Edge AI, TFLite. Projects: 1) Drone Telemetry (YOLOv8, 30+FPS) 2) Temp & Humidity Monitor (ESP8266, MQTT) 3) Fall Detection (ESP32, MPU6050, <2s alert). Internships: 1) India Space Academy — Advanced Drone Technology Intern, Jan 6 to Feb 1 2026, COMPLETED, Enrollment No. 983957, project: Drone Navigator Telemetry System for Rescue Ops. 2) Uniconverge Technologies — IoT Intern, Nov-Dec 2025, ID USC125060TIA. Email: arpit21basti@gmail.com. GitHub: Arpit-techwhiz. Keep answers 2-4 sentences.";
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -1244,6 +1402,7 @@ async function sendChat() {
     <li><a href="#projects" aria-label="Navigate to Projects section">Projects</a></li>
     <li><a href="#experience" aria-label="Navigate to Experience section">Experience</a></li>
     <li><a href="#services" aria-label="Navigate to Services section">Services</a></li>
+    <li><a href="#certifications" aria-label="Navigate to Certifications section">Certs</a></li>
     <li><a href="#message" aria-label="Navigate to Contact section">Contact</a></li>
   </ul>
   <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode" style="background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--mono);font-size:0.7rem;padding:0.35rem 0.7rem;cursor:pointer;letter-spacing:0.08em;transition:all 0.2s;margin-right:0.5rem;" onmouseover="this.style.borderColor='var(--green)';this.style.color='var(--green)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
@@ -1261,11 +1420,7 @@ async function sendChat() {
   <div class="hero-content">
     <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;">
       <div class="hero-tag" style="margin-bottom:0;">Embedded Systems · IoT · Firmware Engineering</div>
-      <div id="visitor-badge" style="font-family:var(--mono);font-size:0.65rem;color:var(--muted);border:1px solid var(--border);padding:0.25rem 0.7rem;display:flex;align-items:center;gap:0.4rem;letter-spacing:0.08em;">
-        <span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;box-shadow:0 0 6px var(--green);animation:pulse 2s infinite;"></span>
-        <span id="visitor-count">—</span> visitors
-      </div>
-    </div>
+      
     <div class="hero-name">Arpit <span class="hl glitch" data-text="Chaudhary">Chaudhary</span></div>
     <div class="hero-typewriter" id="typewriter"></div>
     <p class="hero-desc">
@@ -1290,10 +1445,10 @@ async function sendChat() {
       </a>
     </div>
     <div class="hero-stats">
-      <div><div class="stat-num counter" data-target="2">0</div><div class="stat-label">Years Exp.</div></div>
-      <div><div class="stat-num counter" data-target="3">0</div><div class="stat-label">Projects Built</div></div>
-      <div><div class="stat-num counter" data-target="5">0</div><div class="stat-label">MCU Families</div></div>
-      <div><div class="stat-num counter" data-target="3">0</div><div class="stat-label">IoT Protocols</div></div>
+      <div><div class="stat-num counter" data-target="2">2+</div><div class="stat-label">Years Exp.</div></div>
+      <div><div class="stat-num counter" data-target="3">3+</div><div class="stat-label">Projects Built</div></div>
+      <div><div class="stat-num counter" data-target="5">5+</div><div class="stat-label">MCU Families</div></div>
+      <div><div class="stat-num counter" data-target="3">3+</div><div class="stat-label">IoT Protocols</div></div>
     </div>
   </div>
 </section>
@@ -1507,23 +1662,6 @@ async function sendChat() {
 </section>
 
 
-<!-- GITHUB ACTIVITY -->
-<section id="github-activity" class="section-wrap">
-  <div class="section-header reveal">
-    <h2 class="section-title">GitHub Activity</h2>
-    <div class="section-line"></div>
-  </div>
-  <div class="github-grid reveal">
-    <div class="github-stats-wrap">
-      <img src="https://github-readme-stats.vercel.app/api?username=Arpit-techwhiz&show_icons=true&theme=transparent&title_color=f0b429&icon_color=f0b429&text_color=c8d4f0&border_color=1a2340&hide_border=false&count_private=true" alt="Arpit GitHub Stats" style="width:100%;border-radius:4px;">
-      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Arpit-techwhiz&layout=compact&theme=transparent&title_color=f0b429&icon_color=f0b429&text_color=c8d4f0&border_color=1a2340&hide_border=false" alt="Arpit Top Languages" style="width:100%;border-radius:4px;margin-top:1rem;">
-    </div>
-    <div>
-      <img src="https://github-readme-streak-stats.herokuapp.com/?user=Arpit-techwhiz&theme=dark&background=05080f&ring=f0b429&fire=f0b429&currStreakLabel=f0b429&border=1a2340&sideLabels=c8d4f0&dates=3a4a6a&currStreakNum=ffffff&sideNums=c8d4f0" alt="Arpit GitHub Streak" style="width:100%;border-radius:4px;">
-      <div id="github-commits" style="margin-top:1rem;"></div>
-    </div>
-  </div>
-</section>
 
 <!-- EXPERIENCE TIMELINE -->
 <div id="experience">
@@ -1536,11 +1674,11 @@ async function sendChat() {
   <div class="timeline">
 
     <div class="timeline-item reveal">
-      <div class="timeline-date">Jan 2026 – Present</div>
-      <div class="timeline-role">Drone Technology Intern <span style="font-size:0.75rem;color:var(--green);font-family:var(--mono);margin-left:0.75rem;border:1px solid rgba(0,255,136,0.3);padding:0.15rem 0.5rem;">🔄 IN PROGRESS</span></div>
-      <div class="timeline-org">🚀 India Space Academy · Advanced Drone Technology</div>
-      <div class="timeline-desc">Currently completing an internship focused on advanced drone technology. Project submitted and certificate awaited. Working on drone navigation systems, flight control algorithms, and UAV communication protocols.</div>
-      <div class="timeline-tags"><span class="tag">Drone Tech</span><span class="tag">UAV</span><span class="tag">Flight Control</span><span class="tag">Navigation</span></div>
+      <div class="timeline-date">Jan 6 – Feb 1, 2026</div>
+      <div class="timeline-role">Advanced Drone Technology Intern <span style="font-size:0.75rem;color:var(--green);font-family:var(--mono);margin-left:0.75rem;border:1px solid rgba(0,255,65,0.3);padding:0.15rem 0.5rem;">✓ COMPLETED</span></div>
+      <div class="timeline-org">🚀 India Space Academy · Department of Space Education · New Delhi</div>
+      <div class="timeline-desc">Completed a four-week Winter Training Programme focused on Advanced Drone Technology including drone design, flight control systems, and real-world applications. Project: <strong>Drone Navigator's Telemetry System — Object Detection for Rescue Operations</strong>. Enrollment No. 983957.</div>
+      <div class="timeline-tags"><span class="tag">Drone Design</span><span class="tag">Flight Control</span><span class="tag">Object Detection</span><span class="tag">UAV</span><span class="tag">Telemetry</span></div>
     </div>
 
     <div class="timeline-item reveal">
@@ -1606,6 +1744,57 @@ async function sendChat() {
       <div class="service-icon">☁️</div>
       <div class="service-name">Cloud & Dashboard Setup</div>
       <p class="service-desc">Connecting embedded devices to AWS IoT, Node-RED, and Grafana for remote monitoring, alerting, and data visualization.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications" class="section-wrap">
+  <div class="section-header reveal">
+    <h2 class="section-title">Certifications & Training</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="certs-grid">
+
+    <div class="cert-card reveal">
+      <div class="cert-icon">🚀</div>
+      <div>
+        <div class="cert-issuer">India Space Academy · New Delhi</div>
+        <div class="cert-name">Advanced Drone Technology — Internship Completion</div>
+        <div class="cert-date">Jan 6 – Feb 1, 2026 · Enrollment No. 983957</div>
+      </div>
+      <div class="cert-badge">VERIFIED</div>
+    </div>
+
+    <div class="cert-card reveal">
+      <div class="cert-icon">🏅</div>
+      <div>
+        <div class="cert-issuer">Uniconverge Technologies · Noida</div>
+        <div class="cert-name">Internet of Things — Internship Completion</div>
+        <div class="cert-date">Nov 10 – Dec 10, 2025 · ID: USC125060TIA</div>
+      </div>
+      <div class="cert-badge">VERIFIED</div>
+    </div>
+
+    <div class="cert-card reveal">
+      <div class="cert-icon">🏅</div>
+      <div>
+        <div class="cert-issuer">MMMUT Gorakhpur × Ansys / ARK Infosolution</div>
+        <div class="cert-name">Executive Industrial Training — Ansys for Teaching & Research</div>
+        <div class="cert-date">Apr 23 – 29, 2024 · Cert No. EC021</div>
+      </div>
+      <div class="cert-badge">VERIFIED</div>
+    </div>
+
+    <div class="cert-card reveal">
+      <div class="cert-icon">🚁</div>
+      <div>
+        <div class="cert-issuer">Drone & IoT Club · MMMUT Gorakhpur</div>
+        <div class="cert-name">IoT, Drone, 3D-Printing & AI — Workshop Participation</div>
+        <div class="cert-date">Apr 27 – May 4, 2024</div>
+      </div>
+      <div class="cert-badge">VERIFIED</div>
     </div>
 
   </div>
@@ -1759,33 +1948,23 @@ function animateCounter(el) {
   if (el.dataset.animated) return;
   el.dataset.animated = '1';
   const target = parseInt(el.dataset.target);
-  const duration = 1800;
-  const steps = 60;
-  const increment = target / steps;
   let current = 0;
-  let step = 0;
+  const steps = 40;
+  const delay = 1200 / steps;
+  el.textContent = '0+';
   const timer = setInterval(() => {
-    step++;
-    current = Math.min(Math.round(increment * step), target);
+    current++;
     el.textContent = current + '+';
     if (current >= target) clearInterval(timer);
-  }, duration / steps);
+  }, delay);
 }
 
-// Run counters as soon as DOM is ready (they're in hero, visible immediately)
-document.addEventListener('DOMContentLoaded', () => {
+// Run immediately on page load — no observer needed for hero stats
+window.addEventListener('load', () => {
   setTimeout(() => {
     document.querySelectorAll('.counter').forEach(el => animateCounter(el));
-  }, 600);
+  }, 800);
 });
-
-// Also observe for when scrolled to (fallback)
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) animateCounter(entry.target);
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
 
 // ── 3. PROJECT FILTER ──
 
@@ -2177,7 +2356,7 @@ PROJECTS:
 3. Fall Detection & Alert System (Apr-May 2024) - ESP32 + MPU6050, <2s alert, 15% fewer false alarms. GitHub: github.com/Arpit-techwhiz/Fall_detection_with_message_alert_system
 
 INTERNSHIPS:
-1. India Space Academy - Advanced Drone Technology Intern, Jan 2026-Present (In progress, certificate awaited)
+1. India Space Academy - Advanced Drone Technology Intern, Jan 6 - Feb 1 2026, COMPLETED, Enrollment No. 983957
 2. Uniconverge Technologies Pvt. Ltd., Noida - IoT Intern, Nov-Dec 2025 (Certificate ID: USC125060TIA)
 
 CERTIFICATIONS:
@@ -2363,7 +2542,7 @@ const terminalCommands = {
 
   internships: () => `<span class="t-out-cyan">[Internship History]</span>
   <span class="t-out-amber">1.</span> 🚀 India Space Academy — Advanced Drone Technology
-     <span class="t-out-muted">→ Jan 2026 – Present | Certificate pending</span>
+     <span class="t-out-muted">→ Jan 6 – Feb 1, 2026 | Enrollment No. 983957 ✓ Completed</span>
   <span class="t-out-amber">2.</span> 🏢 Uniconverge Technologies — Internet of Things
      <span class="t-out-muted">→ Nov–Dec 2025 | ID: USC125060TIA</span>`,
 
@@ -2460,4 +2639,34 @@ function handleTerminalKey(e) {
       output.appendChild(resultLine);
     }
   } else {
-    resultLine.innerHTML = `<span class="t-out-err">bash: ${cmd}: command not found. Type <span class="t-out-amber">help</span> 
+    resultLine.innerHTML = `<span class="t-out-err">bash: ${cmd}: command not found. Type <span class="t-out-amber">help</span> for available commands.</span>`;
+    output.appendChild(resultLine);
+  }
+
+  // Scroll terminal to bottom
+  const block = document.getElementById('terminal-block');
+  if (block) block.scrollTop = block.scrollHeight;
+}
+</script>
+
+<!-- AI CHATBOT FAB + PANEL -->
+<button id="chatbot-fab" onclick="toggleChat()" aria-label="Open AI assistant about Arpit">🤖</button>
+
+<div id="chatbot-panel">
+  <div class="chat-header">
+    <div class="pulse-dot"></div>
+    <div class="chat-header-title">⚡ Ask AI — About Arpit</div>
+    <button class="chat-close" onclick="toggleChat()" aria-label="Close chat">✕</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-msg bot">👋 Hi! I'm Arpit's AI assistant. Ask me anything — his skills, projects, internships, or how to hire him!</div>
+    <div class="chat-msg bot" style="opacity:0.7;font-size:0.68rem;">Try: "What are his projects?" · "What MCUs does he use?" · "How to contact Arpit?"</div>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chat-input" placeholder="Ask anything about Arpit..." onkeydown="if(event.key==='Enter')sendChat()" autocomplete="off">
+    <button class="chat-send" id="chat-send" onclick="sendChat()">SEND</button>
+  </div>
+</div>
+
+</body>
+</html>
